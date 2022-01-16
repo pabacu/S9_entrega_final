@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "mywines": {
+      "hosting": {
+        "misVinosApp": [
+          "mywines"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "mywines"
+  }
+}
