@@ -66,6 +66,7 @@ export class UserInitComponent implements OnInit {
         console.log(err);
       }
     )
+    this.winesService.update_carItems();
 
   }
 

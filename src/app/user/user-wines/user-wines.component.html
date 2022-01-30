@@ -67,7 +67,7 @@
             <td>{{wine.variety}}</td>
             <td>{{wine.description}}</td>
             <td><img src="{{wine.img}}" alt="{{wine.name}}" class="img-responsive img-thumbnail center-block"></td>
-            <td>{{wine.price | currency:'USD':true}}</td>
+            <td>{{wine.price | currency:'USD':'symbol'}}</td>
             <td *ngIf="!classSuccess(wine)"><button class="btn btn-outline-info" (click)=onAdd(wine)><i
                   class="bi bi-cart" aria-hidden="true"></i> Add</button></td>
             <td *ngIf="classSuccess(wine)"><button class="btn btn-outline-success" (click)=onAdd(wine)><i

@@ -29,6 +29,7 @@ export class UserWineDetailComponent implements OnInit {
         this.winesAdd.push(sc.wine);
       }
     })
+    this.wineService.update_carItems();
   }
   goBack() {
     this.platformStrategy.back();

@@ -5,7 +5,7 @@ import firebase from 'firebase/compat/app';
 //import * as firebase from 'firebase/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-//import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database'
+//import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 import 'rxjs/Rx';
 import { Router } from '@angular/router';
@@ -178,6 +178,12 @@ export class WinesService {
     }
     this.cartItems.next(this.shoppingCart.length);
   }
+
+public update_carItems()
+{
+  this.cartItems.next(this.shoppingCart.length);
+}
+
   removeFromShoppingCart(sc: ShoppingCart) {
     const index = this.shoppingCart.indexOf(sc);
     if (index !== -1) {
@@ -288,7 +294,7 @@ export class WinesService {
     return this.http.get('https://ng-wine-app.firebaseio.com/orders/' + username + '.json')
       .map((response: Response) => {
         const orders: Order[] = response.json();
-        return orders;
+        return orders.filter(ord => ord != null);
       })
       .catch((error: Response) => {
         return Observable.throw('No Orders were Found');

@@ -15,7 +15,7 @@
           </li>
           <li class="nav-item">
             <a routerLinkActive="active" class="nav-link"  (click)="changeInClass()" routerLink="/user/shoppingcart">
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              <span class="position-absolute translate-middle badge rounded-pill bg-danger">
                 {{items}}
                 <span class="visually-hidden">items in cart</span>
               </span>
@@ -35,12 +35,12 @@
               Account <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li class="dropdown-item"><a>Signed as: <strong>{{username}}</strong></a></li>
+              <li><a class="dropdown-item">Signed as: <strong>{{username}}</strong></a></li>
               <hr>
-              <li class="dropdown-item"><a (click)="changeInClass()" class="cursor_pointer" routerLink="/user/settings">Settings</a></li>
-              <li class="dropdown-item"><a (click)="changeInClass()" class="cursor_pointer" routerLink="/user/threads">Manage Threads</a></li>
+              <li> <a class="dropdown-item disabled" (click)="changeInClass()" routerLink="/user/settings">Settings</a></li>
+              <li> <a class="dropdown-item disabled" (click)="changeInClass()" routerLink="/user/threads">Manage Threads</a></li>
               <hr>
-              <li class="dropdown-item"><a class="cursor_pointer" (click)="onLogOut()">Log out</a></li>
+              <li> <a class="dropdown-item cursor_pointer" (click)="onLogOut()">Log out</a></li>
             </ul>
           </li>
       </ul>

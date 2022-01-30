@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order } from 'src/app/models/orders.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -18,6 +18,7 @@ export class UserOrderComponent implements OnInit {
   detailTotal: number;
   detailProgress = 0;
   spinnerVisible = true;
+  @ViewChild('detailOrder') private myScrollContainer: ElementRef;
 
   constructor(private auths: AuthService, private wineService: WinesService, private router: Router) { }
 
@@ -40,6 +41,12 @@ export class UserOrderComponent implements OnInit {
     } else {
       this.clickedBtn = orderClicked;
       this.details = true;
+      const element = document.querySelector('#detailOrder');
+
+      if (element) {
+        //this.scrollToElement(element);
+        element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+      }
     }
   }
 
@@ -123,6 +130,14 @@ export class UserOrderComponent implements OnInit {
       this.wineService.addToShoppingCart(mySL.wine, mySL.quantity);
       this.router.navigate(['/user/shoppingcart']);
     }
+  }
+
+  scrollToElement(el): void {
+    this.myScrollContainer.nativeElement.scroll({
+      top: this.myScrollContainer.nativeElement.scrollHeight,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 
 }

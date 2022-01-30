@@ -42,6 +42,7 @@ export class ShoppingCartComponent implements OnInit {
       }
       this.calculateTotal();
     }
+    this.wineService.update_carItems();
   }
 
   plusValue(wine) {

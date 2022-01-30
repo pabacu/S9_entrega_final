@@ -39,6 +39,8 @@ export class UserWinesComponent implements OnInit {
     for (const sc of this.scList) {
       this.winesAdd.push(sc.wine);
     }
+
+    this.wineService.update_carItems();
   }
 
   changePages(page: number) {

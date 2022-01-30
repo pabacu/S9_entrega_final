@@ -35,8 +35,8 @@
               <button type="button" class="btn btn-primary" (click)="plusValue(sc.wine)">+</button>
             </div>
           </td>
-          <td>{{sc.wine.price | currency:'USD':true}}</td>
-          <td>{{sc.quantity*sc.wine.price | currency:'USD':true}}</td>
+          <td>{{sc.wine.price | currency:'USD':'symbol'}}</td>
+          <td>{{sc.quantity*sc.wine.price | currency:'USD':'symbol'}}</td>
           <td class="text-center">
               <button type="button" class="btn btn-outline-danger" (click)="onDelete(sc)" aria-label="Trash"><i class="bi bi-trash"></i></button>
         </td>
@@ -44,7 +44,7 @@
       </table>
       <div class="row" *ngIf="!isEmpty">
         <div class="col-xs-12 text-right">
-          <h2>Total:{{total | currency:'USD':true}}</h2>
+          <h2>Total:{{total | currency:'USD':'symbol'}}</h2>
         </div>
         <div class="row">
           <div class="col-xs-12 col-sm-3 col-sm-offset-9">
