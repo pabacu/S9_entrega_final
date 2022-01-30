@@ -2,8 +2,11 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import firebase from 'firebase/compat/app';
+//import * as firebase from 'firebase/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+//import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database'
+
 import 'rxjs/Rx';
 import { Router } from '@angular/router';
 
@@ -15,7 +18,7 @@ import { Observable } from 'rxjs/Observable';
 import { ShoppingCart } from '../models/shopping-cart.model';
 import { Order } from '../models/orders.model';
 import { OrdersList } from '../models/orders-list.model';
-
+import { Subject } from 'rxjs/Rx';
 
 
 @Injectable()
@@ -24,8 +27,22 @@ export class WinesService {
   label: Label[] = [];
   edit: string;
   allOrders: Order[] = [];
+  cartItems = new Subject<number>();
 
-  constructor(private http: Http, private router: Router, private auths: AuthService) { }
+  constructor(private http: Http, private router: Router, private auths: AuthService) {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyBONgpaXT8A3bQVMtNwerT075ayZJUtpts',
+      authDomain: 'ng-wine-app.firebaseapp.com',
+      databaseURL: 'https://ng-wine-app.firebaseio.com',
+      projectId: 'ng-wine-app',
+      storageBucket: 'ng-wine-app.appspot.com',
+      messagingSenderId: '344796102137'
+    });
+    
+    this.cartItems.subscribe(val => {
+      console.log(val);
+    });
+   }
 
   getAllLabels() {
     return this.http.get('https://ng-wine-app.firebaseio.com/labels.json')
@@ -76,7 +93,7 @@ export class WinesService {
       const ilabel = this.label.findIndex(label => label.wines.find(wine => wine.wineId === id) != null);
       return this.label[ilabel].wines.find(wine => wine.wineId === id);
     } else {
-      return this.router.navigate(['/user/wines']);
+      return null; //this.router.navigate(['/user/wines']);
     }
   }
 
@@ -159,6 +176,7 @@ export class WinesService {
     } else {
       this.shoppingCart.push(sc);
     }
+    this.cartItems.next(this.shoppingCart.length);
   }
   removeFromShoppingCart(sc: ShoppingCart) {
     const index = this.shoppingCart.indexOf(sc);
@@ -194,6 +212,7 @@ export class WinesService {
     const username = this.auths.getUserName();
     const orderID: string = username + Date.now();
     const order: Order = new Order(orderID, Date.now(), this.shoppingCart, 'waiting for approve');
+    
     const genOrd = Observable.create((observer: Observer<string>) => {
       this.http.get('https://ng-wine-app.firebaseio.com/orders/' + username + '.json')
         .map((response: Response) => {

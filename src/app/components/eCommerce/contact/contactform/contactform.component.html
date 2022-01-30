@@ -1,0 +1,40 @@
+<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+    <h2>Contact Us</h2>
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="contact-name">Name</label>
+        <input type="text" id="contact-name" formControlName="contact-name" class="form-control">
+        <span *ngIf="!contactForm.get('contact-name').valid && contactForm.get('contact-name').touched" class="help-block">
+            <span *ngIf="contactForm.get('contact-name').errors['required']">Please input your name</span>
+        </span>
+        <span *ngIf="contactForm.get('contact-name').valid && contactForm.get('contact-name').touched && contactForm.get('contact-name').dirty"
+          class="help-block">
+              <span><img src="../../../../assets/img/ok-green.png" alt="ok-green"></span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="contact-email">Mail</label>
+        <input type="text" id="contact-email" formControlName="contact-email" class="form-control">
+        <span *ngIf="!contactForm.get('contact-email').valid && contactForm.get('contact-email').touched" class="help-block">
+            <span *ngIf="contactForm.get('contact-email').errors['required']">Please input your email</span>
+        <span *ngIf="contactForm.get('contact-email').errors['email'] && !contactForm.get('contact-email').errors['required']">Please enter a valid email</span>
+        </span>
+        <span *ngIf="contactForm.get('contact-email').valid && contactForm.get('contact-email').touched && contactForm.get('contact-email').dirty"
+          class="help-block">
+              <span><img src="../../../../assets/img/ok-green.png" alt="ok-green"></span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="contact-message">Message</label>
+        <textarea id="contact-message" rows="4" formControlName="contact-message" class="form-control">/<textarea name="" id="" cols="30" rows="10"></textarea>
+        <span *ngIf="!contactForm.get('contact-message').valid && contactForm.get('contact-message').touched" class="help-block">
+            <span *ngIf="contactForm.get('contact-message').errors['required']">Please send us your message</span>
+        </span>
+        <span *ngIf="contactForm.get('contact-message').valid && contactForm.get('contact-message').touched && contactForm.get('contact-message').dirty"
+          class="help-block">
+              <span><img src="../../../../assets/img/ok-green.png" alt="ok-green"></span>
+        </span>
+      </div>
+      <button class="btn btn-primary" [disabled]="!contactForm.valid" type="submit">Submit</button>
+    </form>
+  </div>

@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 text-left">
+      <h2>Our Wines</h2>
+    </div>
+    <div class="col-xs-12 col-sm-6 text-right">
+      <h2><small>Take your time, make your order...</small></h2>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-xs-12">
+      <form class="form-inline" [formGroup]="userProdFilterForm" (ngSubmit)="onFilter()">
+        <div class="form-group">
+          <div class="row">
+          <div class="col-xs-6">
+            <label for="userProd-Flabel">Filter by Label: </label>
+            <select class="form-select form-select-lg mb-2" aria-label=".form-select-lg userProd-Flabel"
+              name="userProd-Flabel" id="userProd-Flabel" formControlName="userProd-Flabel">
+              <option value="Animal">Animal</option>
+              <option value="Siesta">Siesta</option>
+              <option value="Alma Negra">Alma Negra</option>
+              <option value="Tikal">Tikal</option>
+              <option value="Padrillos">Padrillos</option>
+            </select>
+          </div>
+          <div class="col-xs-6">
+            <button type="submit" class="btn btn-success">Apply Filter</button>
+            <button type="button" class="btn btn-warning  ms-2" (click)="onRemoveFilter()">Remove Filter</button>
+          </div>
+        </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="text-center" *ngIf="!filter">
+        <button class="btn btn-default" [ngClass]="{ 'btn-primary': butOne, 'btn-default': !butOne }"
+          (click)="changePages(1)">1</button>
+        <button class="btn btn-default" [ngClass]="{ 'btn-primary': butTwo, 'btn-default': !butTwo }"
+          (click)="changePages(2)">2</button>
+        <button class="btn btn-default" [ngClass]="{ 'btn-primary': butThree, 'btn-default': !butThree }"
+          (click)="changePages(3)">3</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table table-striped table-hover">
+      <tr class="info">
+        <th>Label</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Variety</th>
+        <th>Description</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Order</th>
+      </tr>
+      <ng-container *ngFor="let label of labels | paginate: {itemsPerPage:ipp, currentPage: p}; index as il">
+        <ng-container *ngIf="!filter || label.name === filterLabel">
+          <tr *ngFor="let wine of label.wines; index as iw" [ngClass]="classSuccess(wine)">
+            <td>{{label.name}}</td>
+            <td><a [routerLink]="['/wines', wine.wineId]" class="btn btn-outline-primary"
+                role="button">{{wine.wineId}}</a></td>
+            <td>{{wine.name}}</td>
+            <td>{{wine.variety}}</td>
+            <td>{{wine.description}}</td>
+            <td><img src="{{wine.img}}" alt="{{wine.name}}" class="img-responsive img-thumbnail center-block"></td>
+            <td>{{wine.price | currency:'USD':true}}</td>
+            <td *ngIf="!classSuccess(wine)"><button class="btn btn-outline-info" (click)=onAdd(wine)><i
+                  class="bi bi-cart" aria-hidden="true"></i> Add</button></td>
+            <td *ngIf="classSuccess(wine)"><button class="btn btn-outline-success" (click)=onAdd(wine)><i
+                  class="bi bi-cart" aria-hidden="true"></i> Added</button></td>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </table>
+    <div *ngIf="spinnerVisible">
+      <app-spinner></app-spinner>
+    </div>
+    <div class="text-center" *ngIf="!filter">
+      <button class="btn btn-default" [ngClass]="{ 'btn-primary': butOne, 'btn-default': !butOne }"
+        (click)="changePages(1)">1</button>
+      <button class="btn btn-default" [ngClass]="{ 'btn-primary': butTwo, 'btn-default': !butTwo }"
+        (click)="changePages(2)">2</button>
+      <button class="btn btn-default" [ngClass]="{ 'btn-primary': butThree, 'btn-default': !butThree }"
+        (click)="changePages(3)">3</button>
+    </div>
+  </div>
+</div>

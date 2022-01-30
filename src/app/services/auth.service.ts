@@ -19,14 +19,27 @@ import { Thread } from '../models/thread.model';
 @Injectable()
 
 
-export class AuthService {
+export class AuthService  {
   token: string;
   user: User;
   allUsers: User[] = [];
   orders: Order[];
-  userNameHeader = new Subject();
+  userNameHeader = new Subject<string>();
 
-  constructor(private router: Router, private http: Http) { }
+  constructor(private router: Router, private http: Http) {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyBONgpaXT8A3bQVMtNwerT075ayZJUtpts',
+      authDomain: 'ng-wine-app.firebaseapp.com',
+      databaseURL: 'https://ng-wine-app.firebaseio.com',
+      projectId: 'ng-wine-app',
+      storageBucket: 'ng-wine-app.appspot.com',
+      messagingSenderId: '344796102137'
+    });
+
+    this.userNameHeader.subscribe(val => {
+      console.log(val);
+    });
+   }
 
   signupUser(user: User) {
     const singUp = Observable.create((observer: Observer<string>) => {

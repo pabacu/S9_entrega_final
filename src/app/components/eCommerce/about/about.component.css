@@ -1,0 +1,21 @@
+.about_us{
+    height: 460px;
+}
+
+.about_us h2{
+    margin-top: 150px;
+}
+.about_us img {
+    margin-top: 65px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+}
+@media only screen and (max-width: 768px) {
+    .about_us{
+        height: 200px;
+    }       
+    .about_us h2{
+        margin-top: 10px;
+    }
+}

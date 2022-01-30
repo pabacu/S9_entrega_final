@@ -1,0 +1,101 @@
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>Order History</h2>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <table class="table table-bordered">
+        <tr class="info">
+          <th>Order ID</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Details</th>
+          <th>Modify</th>
+          <th>Cancel</th>
+        </tr>
+        <tr *ngFor="let order of orders" [ngClass]="onClassActive(order.orderId)">
+          <td>{{order.orderId}}</td>
+          <td>{{order.date | date:'medium'}}</td>
+          <td>{{order.status}}</td>
+          <td class="text-center"><button class="btn btn-info" (click)="onDetails(order.orderId)">Details<span [ngClass]="onClickedButton(order.orderId)" aria-hidden="true"> </span></button></td>
+          <td class="text-center"><button class="btn btn-warning" [disabled]="buttonDisabled(order.status)" (click)="onModify(order.orderId)"><span class="bi bi-pencil" aria-hidden="true"></span></button></td>
+          <td class="text-center"><button class="btn btn-danger" [disabled]="buttonDisabled(order.status)" (click)="onDestroy(order.orderId)"><span class="bi bi-trash" aria-hidden="true"></span></button></td>
+        </tr>
+      </table>
+      <div *ngIf="spinnerVisible"><app-spinner></app-spinner></div>
+    </div>
+  </div>
+  <div class="container" *ngIf="details">
+    <hr>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <h3>Order ID: {{orderDetail.orderId}}</h3>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <h3>Realiced on: {{orderDetail.date | date:'medium'}}</h3>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Status</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="detailProgress" aria-valuemin="0" aria-valuemax="100"
+            [ngStyle]="{'width': detailProgress+'%'}">
+            {{detailProgress | number:'1.0-1'}}%
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2 text-right">Waiting for approve</div>
+      <div class="col-sm-2 text-right">Approved</div>
+      <div class="col-sm-2 text-right">Paid</div>
+      <div class="col-sm-2 text-right">Shipped</div>
+      <div class="col-sm-2 text-right">On its way</div>
+      <div class="col-sm-2 text-right">Arrive - Complete</div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-xs-12">
+        <table class="table table-bordered">
+          <tr class="info">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Variety</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+          </tr>
+          <tr *ngFor="let sc of orderDetail.sclOrder">
+            <td>{{sc.wine.wineId}}</td>
+            <td>{{sc.wine.name}}</td>
+            <td>{{sc.wine.variety}}</td>
+            <td>{{sc.wine.description}}</td>
+            <td><img src="{{sc.wine.img}}" alt="{{sc.wine.name}}" class="img-responsive img-thumbnail center-block"></td>
+            <td>{{sc.wine.price | currency:'USD':true}}</td>
+            <td>{{sc.quantity}}</td>
+            <td>{{sc.wine.price*sc.quantity | currency:'USD':true}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 text-right">
+        <button class="btn btn-success text-left" (click)="onOrderToCart()"><span class="bi bi-cart" aria-hidden="true"></span>  Add Order into Cart</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 text-right">
+        <h3>Total: <strong>{{detailTotal | currency:'USD':true}}</strong></h3>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <h2 class="text-center">Log In</h2>
+        <form [formGroup]="signinForm" (ngSubmit)="onLogin()">
+          <div class="form-group">
+            <label for="signin-email">Email</label>
+            <input type="text" id="signin-email" formControlName="signin-email" class="form-control">
+            <span *ngIf="!signinForm.get('signin-email').valid && signinForm.get('signin-email').touched" class="help-block">
+              <span *ngIf="signinForm.get('signin-email').errors['required']">Please input your email</span>
+            <span *ngIf="signinForm.get('signin-email').errors['email'] && !signinForm.get('signin-email').errors['required']">Please enter a valid email</span>
+            </span>
+            <span *ngIf="signinForm.get('signin-email').valid && signinForm.get('signin-email').touched && signinForm.get('signin-email').dirty"
+              class="help-block">
+              <span><img src="../../../../assets/img/ok-green.png" alt="ok-green"></span>
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="signin-password">Password</label>
+            <input type="password" id="signin-password" formControlName="signin-password" class="form-control">
+            <span *ngIf="!signinForm.get('signin-password').valid && signinForm.get('signin-password').touched" class="help-block">
+              <span *ngIf="signinForm.get('signin-password').errors['required']">Please input your password</span>
+            <span *ngIf="signinForm.get('signin-password').errors['minlength']">The password must contain at least six characters</span>
+            </span>
+            <span *ngIf="signinForm.get('signin-password').valid && signinForm.get('signin-password').touched && signinForm.get('signin-password').dirty"
+              class="help-block">
+              <span><img src="../../../../assets/img/ok-green.png" alt="ok-green"></span>
+            </span>
+            <span *ngIf="loggingError" class="help-block bg-danger">{{errorMessage}}</span>
+          </div>
+          <div *ngIf="spinnerVisible" class="spinner">
+            <app-little-spinner></app-little-spinner>
+          </div>
+          <div class="text-center mt-3">
+            <button type="submit" [disabled]="!signinForm.valid" class="btn btn-success">Send</button>
+            <button type="reset" class="btn btn-warning ms-3" (click)="onClear()">Clear</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row" *ngIf="hint">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <div class="alert alert-info" role="alert">
+          <div class="row">
+            <div class="col-xs-6">
+              <ul>
+                <li>user: test@test.com</li>
+                <li>pass: 111111</li>
+              </ul>
+            </div>
+            <div class="col-xs-6">
+              <ul>
+                <li>admin: admin@admin.com</li>
+                <li>pass: 111111</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <button type="button" class="btn btn-default" (click)="onHint()">Hint</button>
+      </div>
+    </div>
+  </div>

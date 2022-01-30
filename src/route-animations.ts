@@ -2,7 +2,7 @@ import { animate, animateChild, group, query, style, transition, trigger } from 
 
 export const slideInAnimation =
   trigger('routeAnimations', [
-    transition('HomePage <=> ContactPage', [
+    transition('HomePage <=> AboutPage', [
       style({ position: 'relative' }),
       query(':enter, :leave', [
         style({
@@ -26,7 +26,7 @@ export const slideInAnimation =
       ]),
       query(':enter', animateChild()),
     ]),
-    transition('* <=> LabelPage', [
+    transition('* <=> ContactPage', [
       style({ position: 'relative' }),
       query(':enter, :leave', [
         style({

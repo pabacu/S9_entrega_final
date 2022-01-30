@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row content">
+      <div class="col-xs-12">
+        <a role="button" [routerLink]="['/labels']" class="btn btn-info">&laquo; Back</a>
+      </div>
+    </div>
+    <div class="row margin-content">
+      <div *ngIf="spinnerVisible"><app-spinner></app-spinner></div>
+      <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let mywine of wines; index as i">
+        <a role="button" [routerLink]="['/labels', id, i]"><img src="{{mywine.img}}" alt="mywine.name" class="img-responsive wines-img"></a>
+        <h3>{{mywine.name}}</h3>
+        <p><span>{{mywine.variety}}</span></p>
+        <p>{{mywine.description}}</p>
+        <p><a class="btn btn-outline-secondary" [routerLink]="['/labels', id, i]" role="button">View details &raquo;</a></p>
+      </div>
+      <div class="col-xs-12 text-right mb-3">
+        <a role="button" [routerLink]="['/labels']" class="btn btn-info">&laquo; Back</a>
+      </div>
+    </div>
+  </div>

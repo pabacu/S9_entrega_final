@@ -1,3 +1,8 @@
 .margin-content{
-    margin-top: 51.4px;
+    margin-bottom: 51.4px;
+}
+
+.card{
+    height: 570px;
+    margin-bottom: 5px;
 }

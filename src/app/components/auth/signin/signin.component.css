@@ -1,0 +1,10 @@
+input.ng-touched.ng-invalid{
+    border: 1px solid red;
+}
+.spinner{
+    margin-left: auto;
+    margin-right: auto;
+}
+.alert{
+    margin-top: 10px;
+}

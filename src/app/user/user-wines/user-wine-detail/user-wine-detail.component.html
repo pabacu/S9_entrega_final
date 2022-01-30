@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row content">
+      <div class="col-xs-12">
+        <a role="button" (click)="goBack()" class="btn btn-info">&laquo; Back</a>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngIf="spinnerVisible"><app-spinner></app-spinner></div>
+      <div class="col-md-6">
+        <img src="{{wine.img}}" alt="{{wine.name}}" class="img-responsive">
+      </div>
+      <div class="col-md-6">
+        <div *ngIf="!classSuccess()"><button class="btn btn-primary" (click)=onAdd()><span class="bi bi-shopping-cart" aria-hidden="true"></span>  Add</button></div>
+        <div *ngIf="classSuccess()"><button class="btn btn-success" (click)=onAdd()><span class="bi bi-shopping-cart" aria-hidden="true"></span>  Added</button></div>
+        <h2>{{wine.name}}</h2>
+        <h4>{{wine.variety}}</h4>
+        <p>{{wine.description}}</p>
+        <h3>{{wine.price | currency:'USD':true}}</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 text-right">
+        <a role="button" (click)="goBack()" class="btn btn-info">&laquo; Back</a>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,91 @@
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>Overview </h2>
+        <h2><small>Wellcome <strong>{{user.username}}</strong> - It's nice to have you here!</small></h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <h3>Orders</h3>
+        <hr>
+        <h4><span class="badge bg-secondary">{{ordNotApproved}}</span> - Orders waiting for approved</h4>
+        <h4><span class="badge bg-warning text-dark">{{ordApproved}}</span> - Orders Approved</h4>
+        <h4><span class="badge bg-info text-dark">{{ordPaid}}</span> - Orders paid but still not arrived</h4>
+        <h4><span class="badge bg-success">{{ordCompleted}}</span> - Orders completed Correctly</h4>
+        <br>
+        <div class="text-left"><a routerLink="/user/orderhistory" class="btn btn-default">Orders  <span class="bi bi-arrow-right" aria-hidden="true"></span></a></div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <h3>Threads</h3>
+        <hr>
+        <h4><span class="badge bg-secondary text-dark">{{thrOpen}}</span> - Threads that are still open</h4>
+        <h4><span class="badge bg-success">{{thrClose}}</span> - Threads that were close</h4>
+        <h4><span class="badge bg-secondary">{{thrMade}}</span> - Threads that you have made</h4>
+        <br>
+        <div class="text-left btn-thread"><a routerLink="/user/threads" class="btn btn-default">Threads  <span class="bi bi-arrow-right" aria-hidden="true"></span></a></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <h3>Last Year Activity</h3>
+        <hr>
+        <div class="col-xs-3">
+          <h4>Months</h4>
+        </div>
+        <div class="col-xs-9 text-center">
+          <h4>Orders</h4>
+        </div>
+        <br>
+        <div *ngFor="let daOrd of dateOrders">
+          <div class="col-xs-3">
+            {{daOrd.month}}
+          </div>
+          <div class="col-xs-9">
+            <div class="progress">
+              <div [ngClass]="classProgressBar(daOrd.porcent)" role="progressbar" [attr.aria-valuenow]="daOrd.porcent" aria-valuemin="0"
+                aria-valuemax="100" [ngStyle]="{'width': daOrd.porcent+'%'}">
+                {{daOrd.quantity | number:'1.0-1'}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-left"><a routerLink="/user/orderhistory" class="btn btn-default">Orders  <span class="bi bi-arrow-right" aria-hidden="true"></span></a></div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <h3>Top 10 of your favorites wines</h3>
+        <hr>
+        <div class="col-xs-3">
+          <h4>Wines</h4>
+        </div>
+        <div class="col-xs-9 text-center">
+          <h4>Times Bought it</h4>
+        </div>
+        <br>
+        <div *ngFor="let sc of scFavWines; index as i">
+          <div class="col-xs-3">
+            <a [routerLink]="['/wines', sc.wine.wineId]" class="btn btn-outline-secondary position-relative mb-2" role="button">{{sc.wine.wineId}}
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{sc.quantity | number:'1.0-1'}}
+                <span class="visually-hidden">total bought {{sc.wine.wineId}}</span>
+              </span>
+            </a>
+          </div>
+
+          <div class="col-xs-9">
+            <div class="progress">
+              <div [ngClass]="classProgressBar(scFavWinesPercent[i])" role="progressbar" [attr.aria-valuenow]="scFavWinesPercent[i]" aria-valuemin="0"
+                aria-valuemax="100" [ngStyle]="{'width': scFavWinesPercent[i]+'%'}">
+                {{sc.quantity | number:'1.0-1'}}
+              </div>
+            </div>
+          </div>
+          <br/>
+        </div>
+
+        <button class="btn btn-primary text-left btn-wines mb-5" (click)="onAddFavWines()"><span class="bi bi-shopping-cart" aria-hidden="true"></span>  Add Wines into Cart</button>
+      </div>
+    </div>
+    <br/>
+  
+  </div>

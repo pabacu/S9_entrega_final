@@ -1,30 +1,15 @@
-<div class="container">
+<div class="container margin-content">
     <div class="row contenido">
         <div *ngIf="spinnerVisible">
             <app-spinner></app-spinner>
         </div>
         <div class="col-md-4" *ngFor="let label of labels; index as i">
-            <a [routerLink]="['/labels', i]" role="button"><img src="{{label.img}}" alt="label.name"
-                    class="img-responsive"></a>
-            <h3>{{label.name}}</h3>
-            <p><span>{{label.description}}</span></p>
-            <p><a class="btn btn-default" [routerLink]="['/labels', i]" role="button">View details &raquo;</a></p>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row contenido">
-        <div *ngIf="spinnerVisible">
-            <app-spinner></app-spinner>
-        </div>
-        <div class="col-md-4" *ngFor="let label of labels; index as i">
-            <div class="card" style="width: 18rem;">
+            <div class="card">
                 <img src="{{label.img}}" class="card-img-top" alt="label.name">
                 <div class="card-body">
                     <h5 class="card-title">{{label.name}}</h5>
                     <p class="card-text">{{label.description}}</p>
-                    <a class="btn btn-default" [routerLink]="['/labels', i]" role="button">View details &raquo;</a>
+                    <a class="btn btn-outline-secondary" [routerLink]="['/labels', i]" role="button">View details &raquo;</a>
                 </div>
             </div>
         </div>
